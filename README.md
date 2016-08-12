@@ -1,3 +1,7 @@
+This is a fork of [jimmoffitt/HBC](https://github.com/jimmoffitt/hbc).  As
+of `84b256f` that fork did not implement all the things described in the
+README below.
+
 This is a fork of [Twitter/HBC](https://github.com/twitter/hbc) that supports streaming from a Gnip PowerTrack 2.0 stream.
 
 ## Introduction <a class='tall' id='introduction'>&nbsp;</a>
@@ -54,7 +58,7 @@ Here, we cloned the EnterpriseStreamingEndpoint class and created a new Enterpri
 The only significant change was in constructing the v2 BASE_PATH, using the same product, account name and stream label tokens, and arranging them in the v2 order:
 
 ```java
-  private static final String BASE_PATH = "/stream/%s/accounts/%s/publishers/%s/%s.json"; //product, account_name, stream_label
+  private static final String BASE_PATH = "/stream/%s/accounts/%s/publishers/%s/%s.json"; //product, account_name, publisher, stream_label
 ```
 
 The only other changes were updating the class constructors to reflect the new class name.
@@ -63,6 +67,13 @@ The only other changes were updating the class constructors to reflect the new c
 + public EnterpriseStreamingEndpoint_v2(String account, String product, String label, int clientId) 
 + public EnterpriseStreamingEndpoint_v2(String account, String publisher, String product, String label, int clientId) 
 
+Finally, the `getURI` method was updated to reflect the order of the
+components of the new `BASE_PATH` template string.
+
+#### com.twitter.hbc.core.endpoint.RealTimeEnterpriseStreamingEndpoint_v2 class
+
+Cloned the RealTimeEnterpriseStreamingEndpoint class to inherit from the new
+EnterpriseStreamingEndpoint_v2 class.
 
 ### ClientBase class <a class='tall' id='client-base'>&nbsp;</a>
 
